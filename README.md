@@ -18,11 +18,18 @@ appear in production.
 
 ### GitHub Pages
 
-[`.github/workflows/pages.yml`](.github/workflows/pages.yml) builds `dist/` and publishes it to
-GitHub Pages on every push to `main` (Pages source must be **GitHub Actions**). GitHub Pages cannot
-run a Worker, so when the pages are served from `*.github.io` the front-end talks to the deployed
-Worker instead — see `API_ORIGIN` in `assets/js/app.js`. That origin is allowed through CORS in
-`src/worker.js`; edit `ALLOWED_ORIGINS` if the Pages domain changes.
+Pages publishes this repository from `main` (branch source, root folder), so the site goes live at
+https://omarhosen420.github.io/html-portfolio/ on every push. No build step is needed: every link
+and asset path is relative, so the pages also work under the `/html-portfolio/` subpath.
+`.nojekyll` keeps Jekyll from processing the files.
+
+GitHub Pages cannot run a Worker, so when the pages are served from `*.github.io` the front-end
+sends API calls to the deployed Worker instead — see `API_ORIGIN` in `assets/js/app.js`. That
+origin is allowed through CORS in `src/worker.js`; edit `ALLOWED_ORIGINS` if the domain changes.
+
+One consequence of branch-source hosting: the whole repository is publicly readable, so files such
+as `package.json` and `src/worker.js` can be fetched from the Pages URL. None of them contain
+secrets, but keep it that way.
 
 ## What's in here
 
