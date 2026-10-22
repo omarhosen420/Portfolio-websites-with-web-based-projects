@@ -21,7 +21,7 @@ appear in production.
 ### GitHub Pages
 
 Pages publishes this repository from `main` (branch source, root folder), so the site goes live at
-https://omarhosen420.github.io/html-portfolio/ on every push. No build step is needed: every link
+https://omarhosen420.github.io/Portfolio-websites-with-web-based-projects/ on every push. No build step is needed: every link
 and asset path is relative, so the pages also work under the `/html-portfolio/` subpath.
 `.nojekyll` keeps Jekyll from processing the files.
 
