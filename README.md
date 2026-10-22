@@ -2,8 +2,10 @@
 
 A hand-built portfolio for **Mohammad Omar Hosen** — CSE student, front-end tinkerer, Dhaka.
 
-Four static pages served by a Cloudflare Worker, with a **D1 database** behind the interactive
-parts (guestbook, contact form, birthday RSVP, page likes and the visit counter).
+Static pages served by a Cloudflare Worker, with a **D1 database** behind the interactive parts
+(guestbook, contact form, birthday RSVP, page likes, the visit counter and the AetherOS encrypted
+vault). Two self-contained apps ship alongside the portfolio pages: **ZeroStack** (`devpath/`) and
+**AetherOS** (`aether/`).
 
 ## Live
 
@@ -34,7 +36,8 @@ secrets, but keep it that way.
 ## What's in here
 
 ```
-devpath/                ZeroStack — the separate learning site (see below)
+devpath/                ZeroStack — the learning site (see below)
+aether/                 AetherOS — the cyber-arcane workspace (see below)
 index.html              Home — hero, about, skills, projects, hobbies, guestbook
 contact.html            Contact form + direct contact cards
 movie-ranking.html      Movie ranking project page
@@ -57,8 +60,18 @@ redirect stubs so old links keep working.
 npm install
 npm run build        # assembles dist/
 npm run dev          # wrangler dev on http://localhost:3000 (local D1, no account needed)
-npm test             # 33 end-to-end checks against the running server
+npm test             # 89 end-to-end HTTP checks against the running server
 ```
+
+Two more suites cover what HTTP cannot:
+
+```bash
+node .tools/aether-crypto.mjs   # vault crypto: AES-GCM round-trip, wrong passphrase, tampering
+node .tools/aether-dom.mjs      # drives the real AetherOS page in jsdom, including encrypted sync
+```
+
+Both need `node_modules` and jsdom available to Node (`createRequire` points at `/tmp/pw/`); the
+DOM suite also needs the dev server running on port 3000.
 
 `npm run dev` uses a local SQLite-backed D1 instance. The schema is created on the first API
 request, so there is no migration step to remember.
@@ -72,6 +85,9 @@ request, so there is no migration step to remember.
 | POST   | `/api/like`                    | `{ project, delta }` — one like per visitor  |
 | GET    | `/api/messages?kind=&limit=`   | Guestbook / RSVP list                        |
 | POST   | `/api/messages`                | `{ name, email?, message, kind }`            |
+| GET    | `/api/aether/vault?sigil=`     | Read one encrypted vault blob                |
+| PUT    | `/api/aether/vault`            | Create/update a vault (write key + revision)  |
+| DELETE | `/api/aether/vault`            | Erase a vault (write key + revision)         |
 | GET    | `/api/health`                  | Health probe                                 |
 
 `kind` is one of `guestbook`, `contact`, `rsvp`. All writes are validated, length-capped, rate
@@ -92,12 +108,51 @@ briefs, saved progress, a searchable command palette and a light/dark theme.
 It has no backend of its own on purpose: progress lives in the visitor's `localStorage`,
 so there is no account and nothing to moderate. Because Pages serves the repository root,
 `devpath/` goes live with the rest of the site on every push; `scripts/build.mjs` copies it
-into `dist/`, so the next Worker deploy ships it too (the Worker deployment in production
-predates it until then).
+into `dist/`, so the Worker deployment serves it from the same origin too.
 
 The roadmap and the project briefs are rendered from `devpath/assets/js/curriculum.js` —
 edit the curriculum there, not the HTML. Each page carries a `<noscript>` outline of the
 syllabus so the content still reads without JavaScript.
+
+## AetherOS (the cyber-arcane workspace)
+
+`aether/` is a productivity app disguised as a cyberpunk wizard's grimoire: tasks are *spells* you
+cast into four realms, compiling one pays xp and returns mana, the vault floats those realms in a
+3D chamber, and the codex binds notes into a flip-book with holographic interference.
+
+| Host | URL |
+| ---- | --- |
+| GitHub Pages | https://omarhosen420.github.io/html-portfolio/aether/ |
+| Worker | `<worker-origin>/aether/` |
+
+No framework, no bundler: hand-written HTML/CSS/JS in four files.
+
+| File | Job |
+| ---- | --- |
+| `aether/assets/js/crypto.js` | PBKDF2-SHA256 (600,000 iterations) → AES-256-GCM. Runs in the browser and in Node. |
+| `aether/assets/js/store.js` | state, `localStorage` persistence, mana/xp rules, encrypted sync |
+| `aether/assets/js/fx.js` | canvas particles, rune circles, ambient motes |
+| `aether/assets/js/app.js` | hash router, rendering, delegated events, palette |
+
+### The vault is a locker, not a reader
+
+The server stores **one base64 blob per sigil**. The passphrase never leaves the browser and the
+server has no key, so it cannot read a grimoire even if it wanted to. Two things stop one visitor
+from clobbering another's locker:
+
+- a **write key** — 32 random bytes kept *inside* the ciphertext, proven to the server by SHA-256
+  hash. Reading the blob does not reveal it, so a stranger can fetch ciphertext but cannot
+  overwrite or delete it.
+- a **revision number** — every write bumps it, and a stale write gets `409` instead of silently
+  winning.
+
+Consequences worth knowing: losing the passphrase means losing the data (there is no reset link,
+because nobody can open it for you), and the sigil is an address rather than a secret — treat it
+like a username. The app is local-first: with the network gone, everything still works and saves.
+
+Model choice: the requested Spring Boot backend cannot run on GitHub Pages, and this repository has
+no host for a JVM. The API is therefore implemented on the Worker + D1 that already back the site,
+so the app is genuinely full-stack and live rather than half-deployed.
 
 ## Design notes
 

@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-labelledby="t d">
+  <title id="t">AetherOS cover art</title>
+  <desc id="d">A dark arcane console with glowing rune artifacts floating above a perspective grid, titled AetherOS.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="20%" r="90%">
+      <stop offset="0" stop-color="#1a1236"/>
+      <stop offset="0.55" stop-color="#0a0716"/>
+      <stop offset="1" stop-color="#05040a"/>
+    </radialGradient>
+    <radialGradient id="nebula" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#8f6bff" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#5b3ce0" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#5b3ce0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbViolet" cx="35%" cy="28%" r="75%">
+      <stop offset="0" stop-color="#f3ecff"/>
+      <stop offset="0.3" stop-color="#b598ff"/>
+      <stop offset="0.72" stop-color="#6b3ff0"/>
+      <stop offset="1" stop-color="#2b1668"/>
+    </radialGradient>
+    <radialGradient id="orbCyan" cx="35%" cy="28%" r="75%">
+      <stop offset="0" stop-color="#eafeff"/>
+      <stop offset="0.32" stop-color="#8ef0ff"/>
+      <stop offset="0.75" stop-color="#20a6d8"/>
+      <stop offset="1" stop-color="#0b3b52"/>
+    </radialGradient>
+    <radialGradient id="orbRose" cx="35%" cy="28%" r="75%">
+      <stop offset="0" stop-color="#fff0fa"/>
+      <stop offset="0.32" stop-color="#ff9ed9"/>
+      <stop offset="0.75" stop-color="#d33a94"/>
+      <stop offset="1" stop-color="#4a1033"/>
+    </radialGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7ff0ff"/>
+      <stop offset="0.5" stop-color="#b79cff"/>
+      <stop offset="1" stop-color="#ff8fd0"/>
+    </linearGradient>
+    <linearGradient id="horizon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8b5cff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#8b5cff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#8b5cff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="26" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="mesh" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#9d7bff" stroke-opacity="0.14" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <ellipse cx="800" cy="360" rx="760" ry="420" fill="url(#nebula)"/>
+
+  <!-- perspective floor -->
+  <g opacity="0.85">
+    <path d="M0 720 H1600" stroke="url(#horizon)" stroke-width="2"/>
+    <g stroke="#9d7bff" stroke-opacity="0.18" stroke-width="1">
+      <path d="M800 720 L-120 1000M800 720 L240 1000M800 720 L560 1000M800 720 L760 1000M800 720 L840 1000M800 720 L1040 1000M800 720 L1360 1000M800 720 L1720 1000"/>
+    </g>
+    <g stroke="#7f5bff" stroke-opacity="0.2" stroke-width="1">
+      <path d="M0 760 H1600M0 812 H1600M0 878 H1600M0 960 H1600"/>
+    </g>
+  </g>
+
+  <!-- halo + main artifact -->
+  <circle cx="800" cy="360" r="250" fill="url(#nebula)" opacity="0.9"/>
+  <g filter="url(#glow)" opacity="0.95">
+    <circle cx="800" cy="360" r="150" fill="none" stroke="#c4a9ff" stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="4 10"/>
+    <circle cx="800" cy="360" r="188" fill="none" stroke="#7ff0ff" stroke-opacity="0.28" stroke-width="1" stroke-dasharray="1 14"/>
+  </g>
+  <g>
+    <circle cx="800" cy="360" r="96" fill="url(#orbViolet)" filter="url(#glow)"/>
+    <circle cx="800" cy="360" r="96" fill="none" stroke="#e6d9ff" stroke-opacity="0.7"/>
+    <path d="M800 316 L838 392 H762 Z" fill="none" stroke="#ffffff" stroke-opacity="0.9" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="800" cy="360" r="6" fill="#ffffff"/>
+  </g>
+
+  <!-- satellite artifacts -->
+  <g filter="url(#softGlow)">
+    <circle cx="470" cy="470" r="52" fill="url(#orbCyan)" opacity="0.95"/>
+    <circle cx="470" cy="470" r="64" fill="none" stroke="#8ef0ff" stroke-opacity="0.5" stroke-dasharray="3 8"/>
+    <circle cx="1140" cy="430" r="44" fill="url(#orbRose)" opacity="0.95"/>
+    <circle cx="1140" cy="430" r="55" fill="none" stroke="#ff9ed9" stroke-opacity="0.5" stroke-dasharray="3 8"/>
+    <circle cx="990" cy="560" r="26" fill="url(#orbCyan)" opacity="0.7"/>
+    <circle cx="620" cy="590" r="19" fill="url(#orbRose)" opacity="0.6"/>
+    <circle cx="1290" cy="600" r="14" fill="url(#orbViolet)" opacity="0.55"/>
+    <circle cx="340" cy="360" r="11" fill="url(#orbViolet)" opacity="0.5"/>
+  </g>
+
+  <!-- motes -->
+  <g fill="#dfd4ff" opacity="0.6">
+    <circle cx="260" cy="250" r="2.4"/><circle cx="1240" cy="230" r="3"/>
+    <circle cx="1420" cy="380" r="2"/><circle cx="180" cy="520" r="2.6"/>
+    <circle cx="1060" cy="180" r="2.2"/><circle cx="700" cy="150" r="1.8"/>
+    <circle cx="520" cy="210" r="2"/><circle cx="1330" cy="500" r="2.4"/>
+  </g>
+
+  <!-- wordmark -->
+  <g>
+    <text x="800" y="790" text-anchor="middle" font-family="'Space Grotesk','Inter',system-ui,sans-serif" font-size="118" font-weight="700" letter-spacing="-4" fill="url(#titleGrad)">AetherOS</text>
+    <text x="800" y="846" text-anchor="middle" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="25" letter-spacing="9" fill="#b7aee0" fill-opacity="0.85">THE CYBER-ARCANE WORKSPACE</text>
+  </g>
+
+  <!-- stat strip -->
+  <g font-family="'JetBrains Mono',ui-monospace,monospace" font-size="21" letter-spacing="4" fill="#8f86b8">
+    <text x="300" y="930" text-anchor="middle">SPELLCASTING CONSOLE</text>
+    <text x="800" y="930" text-anchor="middle">3D ARCANE VAULT</text>
+    <text x="1300" y="930" text-anchor="middle">ENCRYPTED GRIMOIRE</text>
+    <g stroke="#6e5bb0" stroke-opacity="0.5" stroke-width="1">
+      <path d="M520 922 h60M1020 922 h60"/>
+    </g>
+  </g>
+
+  <rect x="0.5" y="0.5" width="1599" height="999" fill="none" stroke="#9d7bff" stroke-opacity="0.25"/>
+  <rect width="1600" height="1000" fill="url(#mesh)" opacity="0.05"/>
+</svg>

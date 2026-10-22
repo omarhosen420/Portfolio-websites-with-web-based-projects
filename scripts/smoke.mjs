@@ -22,15 +22,19 @@ async function get(path, headers = {}) {
   return { res, text: await res.text(), finalUrl: res.url };
 }
 
-async function post(path, body) {
+async function send(method, path, body) {
   const res = await fetch(BASE + path, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(body)
+    method,
+    headers: body ? { "content-type": "application/json" } : undefined,
+    body: body ? JSON.stringify(body) : undefined
   });
   let data = null;
   try { data = await res.json(); } catch { /* non-JSON */ }
   return { res, data };
+}
+
+async function post(path, body) {
+  return send("POST", path, body);
 }
 
 console.log(`Smoke testing ${BASE}\n`);
@@ -145,6 +149,79 @@ check("like endpoint accepts the zerostack project", zsLike.res.status === 200, 
 check("zerostack has its own like tally", !!zsLike.data && typeof zsLike.data.likes.zerostack === "number",
   JSON.stringify(zsLike.data));
 await post("/api/like", { project: "zerostack", delta: -1 });
+
+/* -------------------------------------------------- aether (site 3) */
+const aetherPages = [
+  ["/aether/", "cyber-arcane"],
+  ["/aether/index.html", 'id="view-host"'],
+  ["/aether/assets/css/aether.css", "--violet"],
+  ["/aether/assets/js/crypto.js", "600000"],
+  ["/aether/assets/js/store.js", "AetherStore"],
+  ["/aether/assets/js/fx.js", "AetherFX"],
+  ["/aether/assets/js/app.js", "AetherApp"]
+];
+
+for (const [path, needle] of aetherPages) {
+  const { res, text } = await get(path);
+  check(`aether ${path} → 200`, res.status === 200, "status " + res.status);
+  if (needle) check(`aether ${path} contains expected content`, text.includes(needle));
+}
+
+const { res: aetherCss } = await get("/aether/assets/css/aether.css");
+check("aether CSS has the right content type", (aetherCss.headers.get("content-type") || "").includes("css"));
+
+const { res: aetherMissing } = await get("/aether/no-such-page");
+check("aether unknown path → 404", aetherMissing.status === 404, "status " + aetherMissing.status);
+
+const { res: aetherCover } = await get("/assets/images/aether-cover.svg");
+check("aether cover art is served", aetherCover.status === 200 && (aetherCover.headers.get("content-type") || "").includes("svg"),
+  "status " + aetherCover.status);
+
+const { text: homeWithAether } = await get("/index.html");
+check("portfolio lists AetherOS as a project", homeWithAether.includes("AetherOS — the cyber-arcane workspace"));
+check("portfolio AetherOS card links to the app", homeWithAether.includes('href="aether/"'));
+
+const aeLike = await post("/api/like", { project: "aether", delta: 1 });
+check("like endpoint accepts the aether project", aeLike.res.status === 200, "status " + aeLike.res.status);
+check("aether has its own like tally", !!aeLike.data && typeof aeLike.data.likes.aether === "number", JSON.stringify(aeLike.data));
+await post("/api/like", { project: "aether", delta: -1 });
+
+/* the encrypted vault: the server must store and return bytes it cannot read */
+const sigil = ("aeth-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)).toLowerCase().slice(0, 24);
+const writeKey = "a".repeat(64);
+const wrongKey = "b".repeat(64);
+const blob = (salt, iv, ciphertext, revision, key) => ({ sigil, salt, iv, ciphertext, revision, writeKey: key || writeKey });
+
+const seeded = await send("PUT", "/api/aether/vault", blob("c2FsdHNhbHQ=", "aXZpdml2", "Y2lwaGVydGV4dA==", 0));
+check("vault accepts a new sealed blob → 201", seeded.res.status === 201, "status " + seeded.res.status + " " + JSON.stringify(seeded.data));
+check("new vault starts at revision 1", !!seeded.data && seeded.data.revision === 1, JSON.stringify(seeded.data));
+
+const readBack = await send("GET", "/api/aether/vault?sigil=" + encodeURIComponent(sigil));
+check("vault reads back → 200", readBack.res.status === 200, "status " + readBack.res.status);
+check("vault returns the exact ciphertext", !!readBack.data && readBack.data.vault.ciphertext === "Y2lwaGVydGV4dA==");
+check("vault never returns the write key", !!readBack.data && !("writeKey" in readBack.data.vault) && !("write_hash" in readBack.data.vault));
+
+const staleWrite = await send("PUT", "/api/aether/vault", blob("c2FsdHNhbHQ=", "aXZpdml2", "bmV3", 0));
+check("stale revision is rejected → 409", staleWrite.res.status === 409, "status " + staleWrite.res.status);
+
+const hostileWrite = await send("PUT", "/api/aether/vault", blob("c2FsdHNhbHQ=", "aXZpdml2", "bmV3", 1, wrongKey));
+check("a stranger without the write key is refused → 403", hostileWrite.res.status === 403, "status " + hostileWrite.res.status);
+
+const updated = await send("PUT", "/api/aether/vault", blob("c2FsdHNhbHQ=", "aXZpdml2", "dXBkYXRlZA==", 1));
+check("a valid update is accepted → 200", updated.res.status === 200, "status " + updated.res.status);
+check("a valid update bumps the revision", !!updated.data && updated.data.revision === 2, JSON.stringify(updated.data));
+
+const badSigil = await send("GET", "/api/aether/vault?sigil=" + encodeURIComponent("NOPE!"));
+check("invalid sigil rejected → 400", badSigil.res.status === 400, "status " + badSigil.res.status);
+
+const missingVault = await send("GET", "/api/aether/vault?sigil=nobody-here");
+check("unknown vault → 404", missingVault.res.status === 404, "status " + missingVault.res.status);
+
+const deleted = await send("DELETE", "/api/aether/vault", blob("c2FsdHNhbHQ=", "aXZpdml2", "dXBkYXRlZA==", 2));
+check("vault can be deleted by its holder → 200", deleted.res.status === 200, "status " + deleted.res.status);
+
+const gone = await send("GET", "/api/aether/vault?sigil=" + encodeURIComponent(sigil));
+check("deleted vault is gone → 404", gone.res.status === 404, "status " + gone.res.status);
 
 console.log(results.join("\n"));
 console.log(`\n${failures === 0 ? "PASS" : "FAIL"} — ${results.length - failures}/${results.length} checks passed`);

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AetherOS — the cyber-arcane workspace</title>
+<meta name="description" content="AetherOS is a task and note workspace disguised as a cyberpunk wizard's grimoire: cast spells instead of writing tasks, compile them when they are real, and keep the whole thing in an encrypted vault you own.">
+<meta name="theme-color" content="#07060d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/css/aether.css" as="style">
+<link rel="stylesheet" href="assets/css/aether.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#view-host">Skip to the workspace</a>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#/console" data-nav="console">
+    <span class="brand__mark" aria-hidden="true">
+      <span class="brand__ring"></span>
+      <span class="brand__glyph">✦</span>
+    </span>
+    <span class="brand__text">Aether<em>OS</em></span>
+  </a>
+
+  <nav class="topnav" aria-label="Sections">
+    <a href="#/console" data-nav="console">Console</a>
+    <a href="#/vault" data-nav="vault">Vault</a>
+    <a href="#/codex" data-nav="codex">Codex</a>
+    <a href="#/sigil" data-nav="sigil">Sigil</a>
+  </nav>
+
+  <div class="topbar__tools">
+    <div class="mana" id="mana-meter" role="meter" aria-label="Mana pool" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+      <div class="mana__head">
+        <span class="mana__label">Mana</span>
+        <span class="mana__value" id="mana-value">100%</span>
+      </div>
+      <div class="mana__track"><span class="mana__fill" id="mana-fill" style="width:100%"></span></div>
+      <span class="mana__next" id="mana-next">Full</span>
+    </div>
+    <button class="btn btn--ghost btn--kbd" data-action="palette-open" aria-label="Open the command palette">
+      <span aria-hidden="true">⌘</span><span class="btn--kbd__key">K</span>
+    </button>
+  </div>
+</header>
+
+<main class="shell">
+  <div id="view-host" class="view-host"></div>
+
+  <noscript>
+    <section class="view">
+      <div class="panel">
+        <h1>AetherOS needs JavaScript</h1>
+        <p class="panel__sub">The workspace is a live application: spells, the floating vault, the flip-book codex and the
+          encrypted sync all run in the browser. With scripting off, here is what is behind it.</p>
+        <ul class="mechanics">
+          <li><strong>Console</strong> — tasks as spells. Each spell has a realm, a magnitude and a mana cost; compiling one grants xp.</li>
+          <li><strong>Vault</strong> — four realms rendered as artifacts floating in a 3D chamber, glowing by real completion.</li>
+          <li><strong>Codex</strong> — notes bound as a flip-book with holographic interference.</li>
+          <li><strong>Sigil</strong> — the whole grimoire sealed with AES-256-GCM and stored as ciphertext in a D1 database.</li>
+        </ul>
+        <p class="panel__sub"><a class="link" href="../index.html">Back to the portfolio</a></p>
+      </div>
+    </section>
+  </noscript>
+</main>
+
+<footer class="foot">
+  <p><span class="brand__glyph" aria-hidden="true">✦</span> AetherOS — built by
+    <a class="link" href="../index.html">Mohammad Omar Hosen</a>. <span id="year">2026</span></p>
+  <p class="foot__note">Local-first. The vault on the server is ciphertext the server cannot read.</p>
+</footer>
+
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Command palette">
+  <div class="palette__scrim" data-action="palette-close"></div>
+  <div class="palette__box">
+    <label class="sr-only" for="palette-input">Search spells, pages and views</label>
+    <input class="palette__input" id="palette-input" type="text" placeholder="Search spells, pages, realms…"
+           autocomplete="off" spellcheck="false">
+    <ul class="palette__results" id="palette-results"></ul>
+    <p class="palette__foot"><kbd>↑</kbd><kbd>↓</kbd> move · <kbd>↵</kbd> run · <kbd>esc</kbd> close</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/crypto.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/fx.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

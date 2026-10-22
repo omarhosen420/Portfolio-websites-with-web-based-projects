@@ -5,12 +5,16 @@
  *   counters(key, value)              → 'visits' + 'like:<project>' tallies
  *   messages(id, name, email, message, kind, ip_hash, created_at)
  *   visitors(ip_hash, last_seen)      → de-duplicates the visit counter
+ *   vaults(sigil, salt, iv, ciphertext, revision, updated_at)
+ *                                     → AetherOS: client-side-encrypted state.
+ *                                       The server never holds a key, only
+ *                                       ciphertext it cannot read.
  *
  * The schema is created lazily on the first API call so a fresh database
  * (local or hosted) works with no manual migration step.
  */
 
-const PROJECTS = new Set(["movie", "anime", "avatar", "birthday", "portfolio", "zerostack"]);
+const PROJECTS = new Set(["movie", "anime", "avatar", "birthday", "portfolio", "zerostack", "aether"]);
 const KINDS = new Set(["guestbook", "contact", "rsvp"]);
 // only these are readable through the public list endpoint
 const PUBLIC_KINDS = new Set(["guestbook", "rsvp"]);
@@ -69,6 +73,17 @@ async function ensureSchema(env) {
           ip_hash TEXT NOT NULL,
           project TEXT NOT NULL,
           PRIMARY KEY (ip_hash, project)
+        )`),
+        db.prepare(`CREATE TABLE IF NOT EXISTS vaults (
+          sigil TEXT PRIMARY KEY,
+          salt TEXT NOT NULL,
+          iv TEXT NOT NULL,
+          ciphertext TEXT NOT NULL,
+          revision INTEGER NOT NULL DEFAULT 1,
+          write_hash TEXT NOT NULL,
+          ip_hash TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL
         )`),
         db.prepare(`INSERT OR IGNORE INTO counters (key, value) VALUES ('visits', 0)`)
       ]);
@@ -268,6 +283,131 @@ async function handleCreate(env, request) {
   return json({ ok: true, item, kind }, 201);
 }
 
+/* ---------------------------------------------------------------- AetherOS */
+
+// AetherOS keeps its whole state as one client-encrypted blob. The server is a
+// dumb, honest locker: it stores ciphertext it has no key for. Two things stop
+// one visitor from clobbering another's locker — a write key (proven by hash)
+// and an optimistic revision number.
+const SIGIL_RE = /^[a-z0-9][a-z0-9_-]{2,23}$/;
+const B64_RE = /^[A-Za-z0-9+/]+={0,2}$/;
+const HEX_RE = /^[a-f0-9]{64}$/;
+const VAULT_LIMITS = { salt: 96, iv: 96, ciphertext: 190_000 };
+
+function badBlob(value, max) {
+  return typeof value !== "string" || value.length === 0 || value.length > max || !B64_RE.test(value);
+}
+
+async function sha256Hex(value) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function handleVaultGet(env, url) {
+  const sigil = (url.searchParams.get("sigil") || "").toLowerCase();
+  if (!SIGIL_RE.test(sigil)) return fail(400, "Invalid sigil");
+
+  const row = await env.DB.prepare(
+    "SELECT sigil, salt, iv, ciphertext, revision, updated_at FROM vaults WHERE sigil = ?"
+  )
+    .bind(sigil)
+    .first();
+  if (!row) return fail(404, "No vault under that sigil");
+
+  return json({
+    vault: {
+      sigil: row.sigil,
+      salt: row.salt,
+      iv: row.iv,
+      ciphertext: row.ciphertext,
+      revision: Number(row.revision) || 0,
+      updated_at: row.updated_at
+    }
+  });
+}
+
+async function readVaultBody(request) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return { error: fail(400, "Invalid JSON") };
+  }
+  if (!body || typeof body !== "object") return { error: fail(400, "Invalid body") };
+
+  const sigil = typeof body.sigil === "string" ? body.sigil.toLowerCase() : "";
+  if (!SIGIL_RE.test(sigil)) return { error: fail(400, "Sigil must be 3-24 lowercase letters, digits, - or _") };
+
+  const writeKey = typeof body.writeKey === "string" ? body.writeKey.toLowerCase() : "";
+  if (!HEX_RE.test(writeKey)) return { error: fail(400, "Missing write key") };
+
+  if (badBlob(body.salt, VAULT_LIMITS.salt)) return { error: fail(400, "Invalid salt") };
+  if (badBlob(body.iv, VAULT_LIMITS.iv)) return { error: fail(400, "Invalid iv") };
+  if (badBlob(body.ciphertext, VAULT_LIMITS.ciphertext)) return { error: fail(400, "Invalid ciphertext") };
+
+  const revision = Number(body.revision);
+  if (!Number.isInteger(revision) || revision < 0) return { error: fail(400, "Invalid revision") };
+
+  return { sigil, writeKey, revision, salt: body.salt, iv: body.iv, ciphertext: body.ciphertext };
+}
+
+async function handleVaultPut(env, request) {
+  const parsed = await readVaultBody(request);
+  if (parsed.error) return parsed.error;
+  const { sigil, writeKey, revision, salt, iv, ciphertext } = parsed;
+
+  const writeHash = await sha256Hex(writeKey);
+  const existing = await env.DB.prepare(
+    "SELECT revision, write_hash FROM vaults WHERE sigil = ?"
+  )
+    .bind(sigil)
+    .first();
+
+  const now = new Date().toISOString();
+
+  if (!existing) {
+    if (revision !== 0) return fail(409, "Vault does not exist yet");
+    await env.DB.prepare(
+      `INSERT INTO vaults (sigil, salt, iv, ciphertext, revision, write_hash, ip_hash, created_at, updated_at)
+       VALUES (?, ?, ?, ?, 1, ?, ?, ?, ?)`
+    )
+      .bind(sigil, salt, iv, ciphertext, writeHash, await visitorHash(request), now, now)
+      .run();
+    return json({ ok: true, revision: 1, updated_at: now }, 201);
+  }
+
+  // anyone can read a locker; only the holder of the write key may change it
+  if (writeHash !== existing.write_hash) return fail(403, "Write key does not match this vault");
+  if (revision !== Number(existing.revision)) {
+    return json({ error: "Revision conflict", revision: Number(existing.revision) }, 409);
+  }
+
+  await env.DB.prepare(
+    `UPDATE vaults SET salt = ?, iv = ?, ciphertext = ?, revision = revision + 1,
+      ip_hash = ?, updated_at = ? WHERE sigil = ?`
+  )
+    .bind(salt, iv, ciphertext, await visitorHash(request), now, sigil)
+    .run();
+
+  return json({ ok: true, revision: Number(existing.revision) + 1, updated_at: now });
+}
+
+async function handleVaultDelete(env, request) {
+  const parsed = await readVaultBody(request);
+  if (parsed.error) return parsed.error;
+  const { sigil, writeKey, revision } = parsed;
+
+  const existing = await env.DB.prepare("SELECT revision, write_hash FROM vaults WHERE sigil = ?")
+    .bind(sigil)
+    .first();
+  if (!existing) return fail(404, "No vault under that sigil");
+  if ((await sha256Hex(writeKey)) !== existing.write_hash) return fail(403, "Write key does not match this vault");
+  if (revision !== Number(existing.revision)) return fail(409, "Revision conflict");
+
+  await env.DB.prepare("DELETE FROM vaults WHERE sigil = ?").bind(sigil).run();
+  return json({ ok: true, deleted: sigil });
+}
+
 /* ------------------------------------------------------------------ fetch */
 
 // The static pages can also be hosted without a Worker (GitHub Pages), in which
@@ -279,7 +419,7 @@ function withCors(request, response) {
   if (!origin || !ALLOWED_ORIGINS.has(origin)) return response;
   const headers = new Headers(response.headers);
   headers.set("access-control-allow-origin", origin);
-  headers.set("access-control-allow-methods", "GET, POST, OPTIONS");
+  headers.set("access-control-allow-methods", "GET, POST, PUT, DELETE, OPTIONS");
   headers.set("access-control-allow-headers", "content-type");
   headers.set("access-control-max-age", "86400");
   headers.append("vary", "Origin");
@@ -300,7 +440,7 @@ async function handleRequest(request, env) {
   const url = new URL(request.url);
 
   if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: { allow: "GET, POST, OPTIONS" } });
+    return new Response(null, { status: 204, headers: { allow: "GET, POST, PUT, DELETE, OPTIONS" } });
   }
 
   if (!url.pathname.startsWith("/api/")) {
@@ -322,6 +462,9 @@ async function handleRequest(request, env) {
     if (path === "/api/like" && request.method === "POST") return await handleLike(env, request);
     if (path === "/api/messages" && request.method === "GET") return await handleList(env, url);
     if (path === "/api/messages" && request.method === "POST") return await handleCreate(env, request);
+    if (path === "/api/aether/vault" && request.method === "GET") return await handleVaultGet(env, url);
+    if (path === "/api/aether/vault" && request.method === "PUT") return await handleVaultPut(env, request);
+    if (path === "/api/aether/vault" && request.method === "DELETE") return await handleVaultDelete(env, request);
     if (path === "/api/health") return json({ ok: true });
     return fail(404, "Not found");
   } catch (error) {

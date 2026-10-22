@@ -29,5 +29,8 @@ await cp(join(root, "assets"), join(out, "assets"), { recursive: true });
 // it ships as /devpath/ alongside the portfolio pages.
 await cp(join(root, "devpath"), join(out, "devpath"), { recursive: true });
 
+// AetherOS is the same idea: its own app folder, served at /aether/.
+await cp(join(root, "aether"), join(out, "aether"), { recursive: true });
+
 const files = await readdir(out);
 console.log(`built dist/ → ${files.join(", ")}`);
