@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project briefs — ZeroStack</title>
+  <meta name="description" content="Eight project briefs that stack from a single landing page to a tested multi-user app with authentication — each with must-haves, stretch goals and a definition of done.">
+  <meta name="theme-color" content="#f6f1e8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315130f'/%3E%3Cpath d='M9 11h14M9 16h14M9 21h9' stroke='%23e8441f' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <script>
+    try {
+      var t = localStorage.getItem("zerostack.theme");
+      document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/devpath.css">
+  <script src="assets/js/curriculum.js" defer></script>
+  <script src="assets/js/devpath.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="readbar" aria-hidden="true"></div>
+  <div class="wash" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav-wrap">
+    <nav class="site-nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg>
+        </span>
+        <span>ZeroStack<small>24-week path</small></span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="roadmap.html">Roadmap</a></li>
+        <li><a class="nav__link" href="projects.html" aria-current="page">Projects</a></li>
+        <li><a class="nav__link" href="resources.html">Toolkit</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="icon-btn" type="button" data-palette-open aria-label="Search the curriculum">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+        </button>
+        <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme" aria-pressed="false">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu" aria-controls="mobile-menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="nav-sheet" id="mobile-menu">
+    <a href="index.html">Home <span>01</span></a>
+    <a href="roadmap.html">Roadmap <span>02</span></a>
+    <a href="projects.html">Projects <span>03</span></a>
+    <a href="resources.html">Toolkit <span>04</span></a>
+    <a class="btn btn--primary nav-sheet__cta" href="roadmap.html">Start the path</a>
+  </div>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="container">
+        <p class="eyebrow">Project briefs</p>
+        <h1 class="section-title" style="font-size:clamp(2.1rem,5vw,3.6rem);max-width:22ch">
+          Eight builds that get harder while you get <em class="serif accent">better</em>.
+        </h1>
+        <p class="lede" style="margin-top:1rem">
+          Each brief has a must-have list, a stretch list, and a definition of done — so you
+          always know whether it's finished. Build them in order; they're designed to share
+          code and ideas.
+        </p>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom:var(--section-y)">
+      <div class="filters" role="group" aria-label="Filter projects by level">
+        <button class="filter is-active" type="button" data-level-filter="all" aria-pressed="true">All 8</button>
+        <button class="filter" type="button" data-level-filter="starter" aria-pressed="false">Starter</button>
+        <button class="filter" type="button" data-level-filter="core" aria-pressed="false">Core</button>
+        <button class="filter" type="button" data-level-filter="advanced" aria-pressed="false">Advanced</button>
+      </div>
+
+      <div class="projects" data-project-grid></div>
+
+      <noscript>
+        <div class="card" style="padding:1.25rem">
+          <p class="block-label">The eight projects, in order</p>
+          <ol>
+            <li><strong>Your own site</strong> — stage 4 — semantic HTML, responsive, deployed</li>
+            <li><strong>Layout clone</strong> — stage 3 — CSS grid, fluid type, hover states</li>
+            <li><strong>Expense tracker</strong> — stage 6 — vanilla JS state, localStorage</li>
+            <li><strong>Public API search</strong> — stage 6 — fetch, loading and error states</li>
+            <li><strong>React dashboard</strong> — stage 7 — routes, components, data fetching</li>
+            <li><strong>Notes REST API</strong> — stage 8 — CRUD, validation, pagination</li>
+            <li><strong>Blog with a real database</strong> — stage 9 — joins, migrations, seeding</li>
+            <li><strong>Multi-user app with auth</strong> — stage 10 — sessions, scoping, tests, CI</li>
+          </ol>
+          <p>Full briefs need JavaScript; the list above is the running order.</p>
+        </div>
+      </noscript>
+
+      <p class="progress-note" style="margin-top:1.5rem">
+        Stuck on a brief? The <a href="resources.html">toolkit</a> has a debugging protocol
+        and the docs worth bookmarking.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta" data-reveal="zoom">
+          <h2>Pick one and start <em class="serif">today</em>.</h2>
+          <p>The first brief takes a weekend. Shipping something small is what makes the rest of the path feel possible.</p>
+          <div class="cta__actions">
+            <a class="btn btn--primary" href="roadmap.html#stage-git-and-shipping">Go to stage 4</a>
+            <a class="btn btn--ghost" href="resources.html">Get the toolkit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <a class="brand" href="index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg>
+          </span>
+          <span>ZeroStack<small>24-week path</small></span>
+        </a>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="roadmap.html">Roadmap</a>
+          <a href="projects.html">Projects</a>
+          <a href="resources.html">Toolkit</a>
+          <a href="../index.html">Omar's portfolio</a>
+        </nav>
+      </div>
+      <div class="footer__legal">
+        <span>© <span data-year>2026</span> ZeroStack · a study path, not a course.</span>
+        <span>Built by <a href="../index.html">Mohammad Omar Hosen</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="palette" data-palette aria-hidden="true" role="dialog" aria-modal="true" aria-label="Search the curriculum">
+    <div class="palette__box">
+      <input class="palette__input" type="text" data-palette-input placeholder="Search stages, projects, pages…" aria-label="Search the curriculum" autocomplete="off">
+      <ul class="palette__results" data-palette-results></ul>
+      <div class="palette__hint">
+        <span>↑ ↓ to move · Enter to open</span>
+        <span>Esc to close</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" aria-live="polite"></div>
+</body>
+</html>

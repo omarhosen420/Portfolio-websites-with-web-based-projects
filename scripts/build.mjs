@@ -25,5 +25,9 @@ for (const page of PAGES) {
 }
 await cp(join(root, "assets"), join(out, "assets"), { recursive: true });
 
+// ZeroStack, the learning site, is a self-contained folder of its own:
+// it ships as /devpath/ alongside the portfolio pages.
+await cp(join(root, "devpath"), join(out, "devpath"), { recursive: true });
+
 const files = await readdir(out);
 console.log(`built dist/ → ${files.join(", ")}`);

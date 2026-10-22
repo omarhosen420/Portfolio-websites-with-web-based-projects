@@ -34,6 +34,7 @@ secrets, but keep it that way.
 ## What's in here
 
 ```
+devpath/                ZeroStack — the separate learning site (see below)
 index.html              Home — hero, about, skills, projects, hobbies, guestbook
 contact.html            Contact form + direct contact cards
 movie-ranking.html      Movie ranking project page
@@ -76,6 +77,26 @@ request, so there is no migration step to remember.
 `kind` is one of `guestbook`, `contact`, `rsvp`. All writes are validated, length-capped, rate
 limited to 5 per minute per visitor, and stored with bound SQL parameters. Public responses never
 include email addresses.
+
+## ZeroStack (the learning site)
+
+`devpath/` is a second, self-contained site: a 24-week path that takes someone with no
+coding background to full-stack developer. Twelve stages, 55 lessons, eight project
+briefs, saved progress, a searchable command palette and a light/dark theme.
+
+| Host | URL |
+| ---- | --- |
+| GitHub Pages | https://omarhosen420.github.io/html-portfolio/devpath/ |
+| Worker | `<worker-origin>/devpath/` |
+
+It has no backend of its own on purpose: progress lives in the visitor's `localStorage`,
+so there is no account and nothing to moderate. Because Pages serves the repository root,
+`devpath/` goes live with the rest of the site on every push; `scripts/build.mjs` copies it
+into `dist/` so the Worker serves it too.
+
+The roadmap and the project briefs are rendered from `devpath/assets/js/curriculum.js` —
+edit the curriculum there, not the HTML. Each page carries a `<noscript>` outline of the
+syllabus so the content still reads without JavaScript.
 
 ## Design notes
 

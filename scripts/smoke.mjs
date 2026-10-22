@@ -110,6 +110,27 @@ check("unknown API route → 404", unknown.res.status === 404);
 const health = await get("/api/health");
 check("health check → 200", health.res.status === 200);
 
+/* ------------------------------------------------------ devpath (site 2) */
+const devpathPages = [
+  ["/devpath/", "ZeroStack"],
+  ["/devpath/index.html", "An ordinary person"],
+  ["/devpath/roadmap.html", "Twelve stages"],
+  ["/devpath/projects.html", "Eight builds"],
+  ["/devpath/resources.html", "first seven"],
+  ["/devpath/assets/css/devpath.css", "--accent"],
+  ["/devpath/assets/js/curriculum.js", "how-the-web-works"],
+  ["/devpath/assets/js/devpath.js", "initRoadmap"]
+];
+
+for (const [path, needle] of devpathPages) {
+  const { res, text } = await get(path);
+  check(`devpath ${path} → 200`, res.status === 200, "status " + res.status);
+  if (needle) check(`devpath ${path} contains expected content`, text.includes(needle));
+}
+
+const { res: devMissing } = await get("/devpath/no-such-page");
+check("devpath unknown path → 404", devMissing.status === 404, "status " + devMissing.status);
+
 console.log(results.join("\n"));
 console.log(`\n${failures === 0 ? "PASS" : "FAIL"} — ${results.length - failures}/${results.length} checks passed`);
 process.exit(failures === 0 ? 0 : 1);

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The roadmap — ZeroStack</title>
+  <meta name="description" content="Twelve stages, 55 lessons, 186 hours: the full ZeroStack curriculum from how the web works to a deployed multi-user app, with progress saved in your browser.">
+  <meta name="theme-color" content="#f6f1e8">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315130f'/%3E%3Cpath d='M9 11h14M9 16h14M9 21h9' stroke='%23e8441f' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <script>
+    try {
+      var t = localStorage.getItem("zerostack.theme");
+      document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/devpath.css">
+  <script src="assets/js/curriculum.js" defer></script>
+  <script src="assets/js/devpath.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="readbar" aria-hidden="true"></div>
+  <div class="wash" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav-wrap">
+    <nav class="site-nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg>
+        </span>
+        <span>ZeroStack<small>24-week path</small></span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="roadmap.html" aria-current="page">Roadmap</a></li>
+        <li><a class="nav__link" href="projects.html">Projects</a></li>
+        <li><a class="nav__link" href="resources.html">Toolkit</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="icon-btn" type="button" data-palette-open aria-label="Search the curriculum">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+        </button>
+        <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme" aria-pressed="false">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+        </button>
+        <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu" aria-controls="mobile-menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="nav-sheet" id="mobile-menu">
+    <a href="index.html">Home <span>01</span></a>
+    <a href="roadmap.html">Roadmap <span>02</span></a>
+    <a href="projects.html">Projects <span>03</span></a>
+    <a href="resources.html">Toolkit <span>04</span></a>
+    <a class="btn btn--primary nav-sheet__cta" href="#stage-how-the-web-works">Open stage 1</a>
+  </div>
+
+  <main id="main">
+    <section class="section section--tight">
+      <div class="container">
+        <p class="eyebrow">The curriculum</p>
+        <h1 class="section-title" style="font-size:clamp(2.1rem,5vw,3.6rem);max-width:20ch">
+          Twelve stages. Nothing skipped, nothing <em class="serif accent">assumed</em>.
+        </h1>
+        <p class="lede" style="margin-top:1rem">
+          Work top to bottom. Tick a lesson when you can do it without looking it up.
+          Your progress is saved in this browser — no account, no email.
+        </p>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom:var(--section-y)">
+      <div class="roadmap">
+        <aside class="rail" aria-label="Progress and navigation">
+          <div class="rail__card">
+            <div class="rail__ring">
+              <svg class="ring" viewBox="0 0 80 80" aria-hidden="true">
+                <circle class="ring__track" cx="40" cy="40" r="34"></circle>
+                <circle class="ring__fill" cx="40" cy="40" r="34"></circle>
+              </svg>
+              <div>
+                <div class="rail__pct" data-overall-pct>0%</div>
+                <div class="rail__sub" data-overall-count>0 of 55 lessons</div>
+              </div>
+            </div>
+            <button class="btn btn--sm btn--primary" type="button" data-next style="width:100%;margin-top:1.1rem">
+              Jump to next lesson
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <div class="rail__actions">
+              <button class="btn btn--ghost btn--sm" type="button" data-export>Export progress</button>
+              <button class="btn btn--ghost btn--sm" type="button" data-reset>Reset</button>
+            </div>
+          </div>
+
+          <div class="rail__card">
+            <div class="pace">
+              <label for="pace">Hours per week</label>
+              <select id="pace" data-pace>
+                <option value="5">5 — steady, alongside work</option>
+                <option value="10" selected>10 — committed</option>
+                <option value="20">20 — intense</option>
+                <option value="30">30 — full time</option>
+              </select>
+              <p class="pace__out" data-pace-out></p>
+            </div>
+            <p class="rail__label" style="margin-top:1.3rem">Jump to a stage</p>
+            <ul class="rail__list" data-rail-list></ul>
+          </div>
+        </aside>
+
+        <div>
+          <div class="filters" role="group" aria-label="Filter stages by phase">
+            <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All 12</button>
+            <button class="filter" type="button" data-filter="foundations" aria-pressed="false">Foundations</button>
+            <button class="filter" type="button" data-filter="frontend" aria-pressed="false">The front end</button>
+            <button class="filter" type="button" data-filter="backend" aria-pressed="false">Servers &amp; data</button>
+            <button class="filter" type="button" data-filter="launch" aria-pressed="false">Ship &amp; get hired</button>
+          </div>
+
+          <div class="stages" data-stages></div>
+
+          <noscript>
+            <div class="card" style="padding:1.25rem">
+              <p class="block-label">The 12 stages, in order</p>
+              <ol>
+                <li><strong>How the web actually works</strong> — Week 1 · 8h</li>
+                <li><strong>HTML &amp; accessibility</strong> — Week 2 · 10h</li>
+                <li><strong>CSS &amp; responsive layout</strong> — Weeks 3–4 · 16h</li>
+                <li><strong>Git, GitHub &amp; shipping</strong> — Week 5 · 8h</li>
+                <li><strong>JavaScript core</strong> — Weeks 6–7 · 20h</li>
+                <li><strong>Async, fetch &amp; real APIs</strong> — Week 8 · 12h</li>
+                <li><strong>React &amp; component thinking</strong> — Weeks 9–10 · 20h</li>
+                <li><strong>Node.js &amp; REST APIs</strong> — Weeks 11–13 · 24h</li>
+                <li><strong>SQL &amp; data modelling</strong> — Weeks 14–15 · 16h</li>
+                <li><strong>Auth, security &amp; testing</strong> — Weeks 16–18 · 24h</li>
+                <li><strong>Deploy, CI &amp; observability</strong> — Weeks 19–20 · 14h</li>
+                <li><strong>Portfolio, interviews &amp; the hunt</strong> — Weeks 21–24 · 14h</li>
+              </ol>
+              <p>Lesson checklists, resources and saved progress need JavaScript. The stage list above is the full syllabus.</p>
+            </div>
+          </noscript>
+
+          <p class="progress-note" style="margin-top:1.5rem">
+            Reading order matters more than speed. If a stage feels easy, tick it and move on —
+            the build at the end is the real test.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <a class="brand" href="index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg>
+          </span>
+          <span>ZeroStack<small>24-week path</small></span>
+        </a>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="roadmap.html">Roadmap</a>
+          <a href="projects.html">Projects</a>
+          <a href="resources.html">Toolkit</a>
+          <a href="../index.html">Omar's portfolio</a>
+        </nav>
+      </div>
+      <div class="footer__legal">
+        <span>© <span data-year>2026</span> ZeroStack · a study path, not a course.</span>
+        <span><span class="kbd">Ctrl</span> + <span class="kbd">K</span> to search every stage</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="palette" data-palette aria-hidden="true" role="dialog" aria-modal="true" aria-label="Search the curriculum">
+    <div class="palette__box">
+      <input class="palette__input" type="text" data-palette-input placeholder="Search stages, projects, pages…" aria-label="Search the curriculum" autocomplete="off">
+      <ul class="palette__results" data-palette-results></ul>
+      <div class="palette__hint">
+        <span>↑ ↓ to move · Enter to open</span>
+        <span>Esc to close</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" aria-live="polite"></div>
+</body>
+</html>
