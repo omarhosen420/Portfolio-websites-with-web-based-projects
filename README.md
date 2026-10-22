@@ -11,7 +11,7 @@ vault). Two self-contained apps ship alongside the portfolio pages: **ZeroStack*
 
 | Host | URL | Notes |
 | ---- | --- | ----- |
-| GitHub Pages | https://omarhosen420.github.io/html-portfolio/ | Pages only serves static files; the API calls the Worker below |
+| GitHub Pages | https://omarhosen420.github.io/Portfolio-websites-with-web-based-projects/ | Pages only serves static files; the API calls the Worker below |
 | Production   | https://site-70c8da266b74437b9066daf6785f9b11.freebuff.page | Pages + Worker + D1 in one origin |
 | Preview      | https://site-fd738429b66846d7937825137bcbf3e1.freebuff.page | Same, with its own separate database |
 
@@ -102,7 +102,7 @@ briefs, saved progress, a searchable command palette and a light/dark theme.
 
 | Host | URL |
 | ---- | --- |
-| GitHub Pages | https://omarhosen420.github.io/html-portfolio/devpath/ |
+| GitHub Pages | https://omarhosen420.github.io/Portfolio-websites-with-web-based-projects/devpath/ |
 | Worker | `<worker-origin>/devpath/` |
 
 It has no backend of its own on purpose: progress lives in the visitor's `localStorage`,
@@ -122,7 +122,7 @@ cast into four realms, compiling one pays xp and returns mana, the vault floats 
 
 | Host | URL |
 | ---- | --- |
-| GitHub Pages | https://omarhosen420.github.io/html-portfolio/aether/ |
+| GitHub Pages | https://omarhosen420.github.io/Portfolio-websites-with-web-based-projects/aether/ |
 | Worker | `<worker-origin>/aether/` |
 
 No framework, no bundler: hand-written HTML/CSS/JS in four files.
