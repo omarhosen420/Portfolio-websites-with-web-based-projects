@@ -1,58 +1,524 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
- 
-    <title>Omar's Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mohammad Omar Hosen — CSE student &amp; front-end builder</title>
+  <meta name="description" content="Portfolio of Mohammad Omar Hosen — a CSE student in Dhaka building bold, animated, human-friendly web experiences with HTML, CSS, C++ and a lot of curiosity.">
+  <meta name="theme-color" content="#06060a">
+  <link rel="icon" href="assets/images/image.png">
+  <script>
+    // set theme before first paint to avoid a flash
+    try {
+      var t = localStorage.getItem("omar-theme");
+      document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/app.js" defer></script>
 </head>
 <body>
-    <img src="./assets/images/image.png" height = "150"/>
-    <h1>Mohammad Omar Hosen 🙋‍♂️</h1>
-    <h3>Born in 2005👼</h3>
-    <h3>Bangladeshi🌎</h3>
-    <h3>Muslim☪️</h3>
-    <hr/>
-    <h2>Educational Qualificatiion 📚
-    </h2>
-    <hr/>
-    <ul>
-        <li>Bsc in C.S.E(studying from 2024 to till now) from Canadian Univarsity of Bangladesh</li>
-        <li>HSC in Science(Graduated 2022-23) From Dania Univarsity and Collage with gpa 3.83 out of 5.00</li>
-        <li>SSC in Science(Graduated 2019-20) From Baitush Sharaf Jabbaria Aceademy with gpa 4.61 out of 5.00</li>
-    </ul>  
-    <h2>Skills🤹‍♀️
-    </h2>
-       <hr/> 
-        <ul>
-            <li> C,C++ and Html ⭐⭐⭐⭐</li>
-            <li> OOP,DSA and SPL⭐⭐⭐</li>
-            <li> Promt engineering⭐⭐⭐⭐</li>
-            <li> Fluent English⭐⭐⭐⭐</li>
-            <li>Microsoft Office⭐⭐⭐⭐</li>
-            <li>Content Creation⭐⭐⭐⭐</li>
-        </ul>
-   
-    <h2>Projects📔</h2>
-   <hr/> 
-        <ol>
-            <li><a href="./movie ranking project.html" >Movie Ranking Project</a></li>
-            <li><a href="./birthday invitation.html">Birthday Invitation Project</a></li>
-        </ol>
-    
-    <h2>Hobbies 🏓</h2>
-       <hr/> 
-    <ul>
-        <li>Playing Valorant🎮</li>
-        <li>Sleeping😴</li>
-        <li>Intense Workout⛹️</li>
-    </ul>
-   
-    <h2>My Address and Contact Information</h2>
-       <hr/> 
-    <ul>
-        <li><a href="https://maps.app.goo.gl/W2TY9eQNaYDtTFQQA">Address</a>🗺️</li>
-        <li><a href="./contact.html">Contact</a>📞</li>
-    </ul>
-</body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <div class="progress" aria-hidden="true"></div>
+  <div class="bg-fx" aria-hidden="true">
+    <span class="blob blob--a"></span>
+    <span class="blob blob--b"></span>
+    <span class="blob blob--c"></span>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true">O</span>
+        <span>Omar Hosen</span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="#about">About</a></li>
+        <li><a class="nav__link" href="#skills">Skills</a></li>
+        <li><a class="nav__link" href="#projects">Projects</a></li>
+        <li><a class="nav__link" href="#guestbook">Guestbook</a></li>
+        <li><a class="nav__link" href="contact.html">Contact</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+        </button>
+        <a class="btn btn--sm btn--grad" href="contact.html" data-magnet="0.18">Say hi</a>
+        <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu" aria-controls="mobile-menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="nav__mobile" id="mobile-menu" data-nav-sheet>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#guestbook">Guestbook</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero container">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <span class="pill-live"><span class="chip__dot" aria-hidden="true"></span> Open to internships &amp; collabs</span>
+
+          <h1 class="hero__title" data-split>Crafting bold, human-friendly web experiences.</h1>
+
+          <p class="hero__lede">
+            I'm <strong>Mohammad Omar Hosen</strong> — a Computer Science student in Dhaka who builds
+            <span data-rotate='["pixel-perfect interfaces","animated landing pages","clean C++ logic","playful web pages"]'></span>
+            and sweats the details nobody else notices.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--grad" href="#projects" data-magnet="0.2">
+              View my work
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="contact.html" data-magnet="0.16">Let's talk</a>
+          </div>
+
+          <div class="hero__meta">
+            <span class="chip">📍 Dhaka, Bangladesh</span>
+            <span class="chip">🎓 BSc CSE · 2024–</span>
+            <span class="chip">💼 Available for internships</span>
+          </div>
+
+          <div class="hero__stats">
+            <div class="stat">
+              <div class="stat__num"><span data-count="3">0</span></div>
+              <div class="stat__label">Projects live</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num"><span data-count="6">0</span></div>
+              <div class="stat__label">Core skills</div>
+            </div>
+            <div class="stat">
+              <div class="stat__num"><span data-count="100" data-count-suffix="%">0</span></div>
+              <div class="stat__label">Effort given</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="portrait" data-reveal="zoom">
+          <div class="portrait__card" data-tilt="8">
+            <img class="portrait__img" src="assets/images/image.png" width="768" height="960"
+                 alt="Portrait of Mohammad Omar Hosen" loading="eager">
+            <span class="portrait__badge portrait__badge--a"><span aria-hidden="true">🎮</span> Valorant enjoyer</span>
+            <span class="portrait__badge portrait__badge--b"><span aria-hidden="true">💻</span> C / C++ / HTML</span>
+            <span class="portrait__badge portrait__badge--c"><span aria-hidden="true">☪️</span> Muslim · Bangladeshi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span class="scroll-cue__line"></span> Scroll to explore
+      </div>
+    </section>
+
+    <!-- ================= MARQUEE ================= -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">HTML</span>
+        <span class="marquee__item">CSS</span>
+        <span class="marquee__item">C++</span>
+        <span class="marquee__item">OOP</span>
+        <span class="marquee__item">Data Structures</span>
+        <span class="marquee__item">Prompt Engineering</span>
+        <span class="marquee__item">Problem Solving</span>
+        <span class="marquee__item">Content Creation</span>
+      </div>
+      <div class="marquee__track">
+        <span class="marquee__item">HTML</span>
+        <span class="marquee__item">CSS</span>
+        <span class="marquee__item">C++</span>
+        <span class="marquee__item">OOP</span>
+        <span class="marquee__item">Data Structures</span>
+        <span class="marquee__item">Prompt Engineering</span>
+        <span class="marquee__item">Problem Solving</span>
+        <span class="marquee__item">Content Creation</span>
+      </div>
+    </div>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__text">
+            <p class="eyebrow">About me</p>
+            <h2 class="section-title" data-reveal>Student by day, <span class="serif-italic grad-text">builder</span> by choice.</h2>
+          </div>
+          <p class="section-sub" data-reveal="right">
+            I study Computer Science, but I spend my evenings turning plain HTML into interfaces with
+            personality — motion, rhythm, and a little bit of bounce.
+          </p>
+        </div>
+
+        <div class="bento" data-reveal-group>
+          <article class="card span-7" data-reveal="up">
+            <span class="card__icon" aria-hidden="true">🙋‍♂️</span>
+            <h3 class="card__title">Hi, I'm Omar.</h3>
+            <p class="about-lead">
+              Born in <em>2005</em> in Bangladesh. Muslim. Curious about almost everything, obsessive about
+              the last 10% of a project — the part where a page stops looking <em>fine</em> and starts feeling <em>alive</em>.
+            </p>
+            <p class="card__body" style="margin-top:1rem">
+              My roots are in C and C++ — pointers, loops, and structures — which is exactly why I care so much
+              about clean layout logic in CSS. I'm currently studying BSc in CSE and looking for a team where I can
+              learn fast and ship real things.
+            </p>
+            <div class="fact-list">
+              <div class="fact"><span>Based in</span><span>Dhaka, Bangladesh 🇧🇩</span></div>
+              <div class="fact"><span>Studying</span><span>BSc in CSE, 2024 → now</span></div>
+              <div class="fact"><span>Favourite tools</span><span>C++ · HTML · CSS · VS Code</span></div>
+              <div class="fact"><span>Currently</span><span>Leveling up JS &amp; UI motion</span></div>
+            </div>
+          </article>
+
+          <article class="card span-5" data-reveal="up">
+            <span class="card__icon" aria-hidden="true">🎓</span>
+            <h3 class="card__title">Education</h3>
+            <div class="timeline">
+              <div class="tl-item">
+                <span class="tl-meta">2024 — present</span>
+                <h4>BSc in Computer Science &amp; Engineering</h4>
+                <p>Canadian University of Bangladesh</p>
+              </div>
+              <div class="tl-item">
+                <span class="tl-meta">2022 — 2023</span>
+                <h4>HSC, Science</h4>
+                <p>Dania University &amp; College · GPA 3.83 / 5.00</p>
+              </div>
+              <div class="tl-item">
+                <span class="tl-meta">2019 — 2020</span>
+                <h4>SSC, Science</h4>
+                <p>Baitush Sharaf Jabbaria Academy · GPA 4.61 / 5.00</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card span-4" data-reveal="up">
+            <span class="card__icon" aria-hidden="true">🧠</span>
+            <h3 class="card__title">How I think</h3>
+            <p class="card__body">
+              Break the problem down, write the simplest version, then polish until it feels effortless.
+              Same approach for a 300-line C++ program and a landing page.
+            </p>
+          </article>
+
+          <article class="card span-4" data-reveal="up">
+            <span class="card__icon" aria-hidden="true">⚡</span>
+            <h3 class="card__title">What I'm chasing</h3>
+            <p class="card__body">
+              A front-end internship where design and engineering meet. I'd rather learn from people who
+              review my code than ship alone.
+            </p>
+          </article>
+
+          <article class="card span-4" data-reveal="up">
+            <span class="card__icon" aria-hidden="true">🌙</span>
+            <h3 class="card__title">Off the clock</h3>
+            <p class="card__body">
+              Valorant ranked queues, heavy gym sessions, and long sleeps. The trifecta that keeps my
+              focus sharp the rest of the day.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__text">
+            <p class="eyebrow">Skills</p>
+            <h2 class="section-title" data-reveal>The toolbox, <span class="serif-italic grad-text">honestly</span> rated.</h2>
+          </div>
+          <p class="section-sub" data-reveal="right">
+            No inflated percentages — this is how confident I actually am today, and where I'm putting
+            my practice hours next.
+          </p>
+        </div>
+
+        <div class="skills-grid" data-reveal-group>
+          <div class="skill" data-reveal="up" style="--val: 90%">
+            <div class="skill__top"><span>C, C++ &amp; HTML</span><b>Advanced</b></div>
+            <div class="skill__track"><span class="skill__fill"></span></div>
+          </div>
+          <div class="skill" data-reveal="up" style="--val: 88%">
+            <div class="skill__top"><span>Prompt engineering</span><b>Advanced</b></div>
+            <div class="skill__track"><span class="skill__fill"></span></div>
+          </div>
+          <div class="skill" data-reveal="up" style="--val: 85%">
+            <div class="skill__top"><span>English (fluent)</span><b>Advanced</b></div>
+            <div class="skill__track"><span class="skill__fill"></span></div>
+          </div>
+          <div class="skill" data-reveal="up" style="--val: 82%">
+            <div class="skill__top"><span>Microsoft Office</span><b>Confident</b></div>
+            <div class="skill__track"><span class="skill__fill"></span></div>
+          </div>
+          <div class="skill" data-reveal="up" style="--val: 80%">
+            <div class="skill__top"><span>Content creation</span><b>Confident</b></div>
+            <div class="skill__track"><span class="skill__fill"></span></div>
+          </div>
+          <div class="skill" data-reveal="up" style="--val: 75%">
+            <div class="skill__top"><span>OOP, DSA &amp; SPL</span><b>Improving</b></div>
+            <div class="skill__track"><span class="skill__fill"></span></div>
+          </div>
+        </div>
+
+        <div class="tag-cloud" data-reveal>
+          <span class="chip">Problem solving</span>
+          <span class="chip">Semantic HTML</span>
+          <span class="chip">Responsive layout</span>
+          <span class="chip">CSS animation</span>
+          <span class="chip">Visual storytelling</span>
+          <span class="chip">Pair work</span>
+          <span class="chip">Fast learner</span>
+          <span class="chip">Attention to detail</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__text">
+            <p class="eyebrow">Projects</p>
+            <h2 class="section-title" data-reveal>Things I've <span class="serif-italic grad-text">shipped</span>.</h2>
+          </div>
+          <p class="section-sub" data-reveal="right">
+            Small in scope, big in care. Every card here is a live page — open it, poke it, like it.
+          </p>
+        </div>
+
+        <div class="projects" data-reveal-group>
+          <article class="project" data-reveal="up" data-tilt="5">
+            <div class="project__media">
+              <span class="project__badge">Personal</span>
+              <img src="assets/images/Thamma_film_poster.jpg" width="800" height="500" loading="lazy"
+                   alt="Poster artwork used on the movie ranking project">
+            </div>
+            <div class="project__body">
+              <h3 class="project__title">Movie Ranking Project</h3>
+              <p class="project__desc">
+                A cinematic little page ranking my three all-time favourite films, with poster art,
+                star ratings and a hover that lets each card breathe.
+              </p>
+              <ul class="project__tags"><li>HTML</li><li>CSS</li><li>Ranking UI</li></ul>
+              <div class="project__foot">
+                <a class="project__link" href="movie-ranking.html">
+                  Open project <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+                <button class="like-btn" type="button" data-like="movie" aria-label="Like the movie ranking project">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.4-9A5.6 5.6 0 0 1 12 5.7 5.6 5.6 0 0 1 21.4 12c-1.9 4.4-9.4 9-9.4 9Z"/></svg>
+                  <span class="like-btn__count">0</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="project" data-reveal="up" data-tilt="5">
+            <div class="project__media">
+              <span class="project__badge">Playful</span>
+              <img src="assets/images/bdaycake.png" width="800" height="500" loading="lazy"
+                   alt="Birthday cake illustration from the birthday invitation project">
+            </div>
+            <div class="project__body">
+              <h3 class="project__title">Birthday Invitation</h3>
+              <p class="project__desc">
+                An interactive invitation with floating balloons, a live countdown to 28 May and a
+                one-click RSVP that saves to a real database.
+              </p>
+              <ul class="project__tags"><li>HTML</li><li>CSS</li><li>JS</li><li>D1</li></ul>
+              <div class="project__foot">
+                <a class="project__link" href="birthday.html">
+                  Open project <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+                <button class="like-btn" type="button" data-like="birthday" aria-label="Like the birthday invitation project">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.4-9A5.6 5.6 0 0 1 12 5.7 5.6 5.6 0 0 1 21.4 12c-1.9 4.4-9.4 9-9.4 9Z"/></svg>
+                  <span class="like-btn__count">0</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="project" data-reveal="up" data-tilt="5">
+            <div class="project__media">
+              <span class="project__badge">This page</span>
+              <img src="assets/images/image.png" width="800" height="500" loading="lazy"
+                   alt="Portrait used as cover art for the portfolio project">
+            </div>
+            <div class="project__body">
+              <h3 class="project__title">This Portfolio</h3>
+              <p class="project__desc">
+                Hand-built design system, scroll reveals, 3D tilt, confetti and a Cloudflare Worker
+                with a D1 database behind the likes and guestbook.
+              </p>
+              <ul class="project__tags"><li>Design system</li><li>Motion</li><li>Worker + D1</li></ul>
+              <div class="project__foot">
+                <a class="project__link" href="#about">
+                  Explore the site <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+                <button class="like-btn" type="button" data-like="portfolio" aria-label="Like this portfolio">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.4-9A5.6 5.6 0 0 1 12 5.7 5.6 5.6 0 0 1 21.4 12c-1.9 4.4-9.4 9-9.4 9Z"/></svg>
+                  <span class="like-btn__count">0</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOBBIES ================= -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__text">
+            <p class="eyebrow">Off-screen</p>
+            <h2 class="section-title" data-reveal>Life outside the <span class="serif-italic grad-text">editor</span>.</h2>
+          </div>
+        </div>
+        <div class="hobby-grid" data-reveal-group>
+          <article class="hobby" data-reveal="up">
+            <span class="hobby__emoji" aria-hidden="true">🎮</span>
+            <h4>Valorant</h4>
+            <p>Ranked queues, clutch rounds and questionable aim. It taught me more about composure than any exam.</p>
+          </article>
+          <article class="hobby" data-reveal="up">
+            <span class="hobby__emoji" aria-hidden="true">🏋️</span>
+            <h4>Intense workouts</h4>
+            <p>Progressive overload, six days a week. Same rule as coding: small reps, every single day.</p>
+          </article>
+          <article class="hobby" data-reveal="up">
+            <span class="hobby__emoji" aria-hidden="true">😴</span>
+            <h4>Sleeping</h4>
+            <p>Non-negotiable. Eight hours is the best performance hack I've ever found.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GUESTBOOK ================= -->
+    <section class="section" id="guestbook">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head__text">
+            <p class="eyebrow">Guestbook</p>
+            <h2 class="section-title" data-reveal>Leave a note, <span class="serif-italic grad-text">stay</span> a while.</h2>
+          </div>
+          <p class="section-sub" data-reveal="right">
+            A tiny hello goes a long way. Notes are saved to a real database and appear here instantly.
+          </p>
+        </div>
+
+        <div class="guestbook-grid">
+          <form class="card form" data-guestbook-form novalidate data-reveal="left">
+            <div class="field">
+              <label for="gb-name">Your name</label>
+              <input class="input" id="gb-name" name="name" type="text" placeholder="e.g. Ayesha" maxlength="40" autocomplete="name" required>
+              <span class="field__error" role="alert"></span>
+            </div>
+            <div class="field">
+              <label for="gb-message">Your note</label>
+              <textarea class="textarea" id="gb-message" name="message" placeholder="Say something nice…" maxlength="240" required></textarea>
+              <span class="field__error" role="alert"></span>
+            </div>
+            <div class="form__foot">
+              <button class="btn btn--grad" type="submit" data-magnet="0.15">
+                <span class="spinner" aria-hidden="true">◌</span>
+                <span data-label data-idle="Sign the guestbook">Sign the guestbook</span>
+              </button>
+              <span class="form__note">Max 240 characters · kept forever</span>
+            </div>
+          </form>
+
+          <div class="guest-list" data-guestbook-list data-reveal="right" aria-live="polite">
+            <div class="guest-empty">Loading notes…</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta" data-reveal="zoom">
+          <span class="cta__ring" aria-hidden="true"></span>
+          <p class="eyebrow" style="justify-content:center">Let's build something</p>
+          <h2>Got an idea? I've got the <span class="serif-italic grad-text">time</span>.</h2>
+          <p>Internships, freelance pages, or just feedback on this site — my inbox is open and I answer fast.</p>
+          <div class="cta__actions">
+            <a class="btn btn--grad" href="contact.html" data-magnet="0.2">Start a conversation</a>
+            <a class="btn btn--ghost" href="mailto:omarhosen420@gmail.com">omarhosen420@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <a class="brand" href="index.html">
+          <span class="brand__mark" aria-hidden="true">O</span>
+          <span>Omar Hosen</span>
+        </a>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="index.html">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="movie-ranking.html">Movie picks</a>
+          <a href="birthday.html">Birthday</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="footer__legal">
+        <span>© <span data-year>2026</span> Mohammad Omar Hosen · hand-coded in Dhaka.</span>
+        <span class="footer__visits">👀 <b data-visits>—</b> visits</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= BOUNCE MODAL ================= -->
+  <div class="modal" data-modal data-auto role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal__card">
+      <button class="modal__close" type="button" data-modal-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <span class="modal__emoji" aria-hidden="true">👋</span>
+      <h3 id="modal-title">Hey, I'm Omar!</h3>
+      <p>
+        Thanks for stopping by. Take a scroll through my projects — and if you're hiring, the
+        <strong>guestbook</strong> at the bottom is the fastest way to say hello.
+      </p>
+      <div class="modal__actions">
+        <button class="btn btn--grad" type="button" data-modal-close>Show me around</button>
+        <a class="btn btn--ghost" href="contact.html">Contact me</a>
+      </div>
+    </div>
+  </div>
+</body>
 </html>

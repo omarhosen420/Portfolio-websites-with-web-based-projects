@@ -1,0 +1,16 @@
+{
+  "name": "omar-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal portfolio of Mohammad Omar Hosen — static pages served by a Cloudflare Worker with a D1 database.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && wrangler dev --port 3000 --ip 0.0.0.0 --local",
+    "start": "npm run dev",
+    "test": "node scripts/smoke.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

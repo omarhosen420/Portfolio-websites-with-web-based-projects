@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>It's my birthday — 28 May 🎈</title>
+  <meta name="description" content="Omar's birthday invitation: balloons, a live countdown to 28 May, what to bring, and a one-click RSVP.">
+  <meta name="theme-color" content="#06060a">
+  <link rel="icon" href="assets/images/bdaycake.png">
+  <script>
+    try {
+      var t = localStorage.getItem("omar-theme");
+      document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body class="page-birthday">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="progress" aria-hidden="true"></div>
+  <div class="bg-fx" aria-hidden="true">
+    <span class="blob blob--a"></span>
+    <span class="blob blob--b"></span>
+    <span class="blob blob--c"></span>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true">O</span>
+        <span>Omar Hosen</span>
+      </a>
+      <ul class="nav__links">
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="index.html#projects">Projects</a></li>
+        <li><a class="nav__link" href="movie-ranking.html">Movie picks</a></li>
+        <li><a class="nav__link" href="index.html#guestbook">Guestbook</a></li>
+        <li><a class="nav__link" href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-label="Toggle colour theme">
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+        </button>
+        <a class="btn btn--sm btn--grad" href="#rsvp" data-magnet="0.18">RSVP</a>
+        <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu" aria-controls="mobile-menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="nav__mobile" id="mobile-menu" data-nav-sheet>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="movie-ranking.html">Movie picks</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <main id="main">
+    <div class="balloons" aria-hidden="true"></div>
+
+    <section class="bday-hero container">
+      <span class="bday-emoji" aria-hidden="true">🎂</span>
+      <p class="eyebrow" style="justify-content:center">Project · Birthday invitation</p>
+      <h1 class="bday-title" data-split>It's my birthday on the 28th of May.</h1>
+      <p style="color:var(--muted);max-width:44ch;margin-inline:auto" data-reveal="blur">
+        You're invited. Bring balloons, bring cake, bring yourself — that's genuinely the whole list.
+      </p>
+
+      <div class="countdown" data-countdown="2000-05-28" data-reveal="zoom" aria-label="Countdown to the next birthday">
+        <div class="countdown__cell"><span class="countdown__num" data-cd="days">—</span><span class="countdown__label">Days</span></div>
+        <div class="countdown__cell"><span class="countdown__num" data-cd="hours">—</span><span class="countdown__label">Hours</span></div>
+        <div class="countdown__cell"><span class="countdown__num" data-cd="minutes">—</span><span class="countdown__label">Minutes</span></div>
+        <div class="countdown__cell"><span class="countdown__num" data-cd="seconds">—</span><span class="countdown__label">Seconds</span></div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">
+        <a class="btn btn--grad" href="#rsvp" data-magnet="0.2">I'm coming 🎈</a>
+        <a class="btn btn--ghost" href="https://maps.app.goo.gl/W2TY9eQNaYDtTFQQA" target="_blank" rel="noopener">See the location ↗</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head" style="justify-content:center;text-align:center">
+          <div>
+            <p class="eyebrow" style="justify-content:center">What to bring</p>
+            <h2 class="section-title" data-reveal>Three very <span class="serif-italic grad-text">simple</span> things.</h2>
+          </div>
+        </div>
+
+        <div class="bring-grid" data-reveal-group>
+          <article class="bring" data-reveal="up" data-tilt="6">
+            <img src="assets/images/ballons.png" width="220" height="220" loading="lazy" alt="Colourful balloons">
+            <h4>Balloons 🎈</h4>
+            <p>For decoration. The more the ceiling disappears, the better.</p>
+          </article>
+          <article class="bring" data-reveal="up" data-tilt="6">
+            <img src="assets/images/bdaycake.png" width="220" height="220" loading="lazy" alt="Birthday cake">
+            <h4>Cake 🎂</h4>
+            <p>Because I love eating it, and it isn't a birthday without one.</p>
+          </article>
+          <article class="bring" data-reveal="up" data-tilt="6">
+            <img src="assets/images/gift.png" width="220" height="220" loading="lazy" alt="Wrapped gift">
+            <h4>A gift 🎁</h4>
+            <p>Optional, but historically very well received. Small is perfect.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="rsvp">
+      <div class="container container--narrow">
+        <div class="card rsvp-panel" data-reveal="zoom">
+          <span class="card__icon" style="margin-inline:auto" aria-hidden="true">🎟️</span>
+          <h2 class="section-title" style="font-size:clamp(1.7rem,4vw,2.4rem)">Save your spot</h2>
+          <p class="card__body" style="margin:.7rem auto 1.6rem;max-width:42ch">
+            <strong><span data-rsvp-count>—</span></strong> people have said they're coming.
+            Add your name — it saves to a real database, so it sticks.
+          </p>
+
+          <form class="form" data-rsvp-form novalidate style="max-width:26rem;margin-inline:auto;text-align:left">
+            <div class="field">
+              <label for="rsvp-name">Your name</label>
+              <input class="input" id="rsvp-name" name="name" type="text" placeholder="Who's coming?" maxlength="40" autocomplete="name" required>
+              <span class="field__error" role="alert"></span>
+            </div>
+            <button class="btn btn--grad" type="submit" data-magnet="0.15">
+              <span class="spinner" aria-hidden="true">◌</span>
+              <span data-label data-idle="Count me in 🎈">Count me in 🎈</span>
+            </button>
+          </form>
+
+          <p class="form__note" style="margin-top:1.2rem">
+            Party details go out by message. Any questions? <a href="contact.html" style="color:var(--violet);text-decoration:underline">Message me</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta" data-reveal="zoom">
+          <span class="cta__ring" aria-hidden="true"></span>
+          <p class="eyebrow" style="justify-content:center">Meanwhile</p>
+          <h2>I also <span class="serif-italic grad-text">rank</span> films.</h2>
+          <p>Three all-time favourites, with posters and a rating for each.</p>
+          <div class="cta__actions">
+            <a class="btn btn--grad" href="movie-ranking.html" data-magnet="0.2">See my movie picks</a>
+            <a class="btn btn--ghost" href="index.html">Back to home</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <a class="brand" href="index.html">
+          <span class="brand__mark" aria-hidden="true">O</span>
+          <span>Omar Hosen</span>
+        </a>
+        <nav class="footer__links" aria-label="Footer">
+          <a href="index.html">Home</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="movie-ranking.html">Movie picks</a>
+          <a href="birthday.html">Birthday</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div class="footer__legal">
+        <span>© <span data-year>2026</span> Mohammad Omar Hosen · hand-coded in Dhaka.</span>
+        <span class="footer__visits">👀 <b data-visits>—</b> visits</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" data-modal role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal__card">
+      <button class="modal__close" type="button" data-modal-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <span class="modal__emoji" aria-hidden="true">🎈</span>
+      <h3 id="modal-title">You're invited!</h3>
+      <p>28 May. Cake, balloons, and me being one year older. RSVP below so I know how much to bake.</p>
+      <div class="modal__actions">
+        <button class="btn btn--grad" type="button" data-modal-close>Let's go</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
