@@ -92,7 +92,8 @@ briefs, saved progress, a searchable command palette and a light/dark theme.
 It has no backend of its own on purpose: progress lives in the visitor's `localStorage`,
 so there is no account and nothing to moderate. Because Pages serves the repository root,
 `devpath/` goes live with the rest of the site on every push; `scripts/build.mjs` copies it
-into `dist/` so the Worker serves it too.
+into `dist/`, so the next Worker deploy ships it too (the Worker deployment in production
+predates it until then).
 
 The roadmap and the project briefs are rendered from `devpath/assets/js/curriculum.js` —
 edit the curriculum there, not the HTML. Each page carries a `<noscript>` outline of the
