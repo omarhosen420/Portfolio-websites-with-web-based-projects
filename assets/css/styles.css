@@ -914,6 +914,22 @@ p { text-wrap: pretty; }
   will-change: transform;
 }
 .project:hover { box-shadow: var(--shadow); border-color: var(--stroke-strong); }
+
+/* featured project: full row, image beside the copy */
+.project--feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+}
+.project--feature .project__media { height: 100%; aspect-ratio: auto; min-height: 26rem; background: var(--bg-2); }
+.project--feature .project__media::after { background: none; }
+.project--feature .project__body { justify-content: center; padding: clamp(1.35rem, 3vw, 2.2rem); }
+.project--feature .project__title { font-size: clamp(1.35rem, 2.4vw, 1.9rem); }
+.project--feature .project__desc { font-size: 0.96rem; }
+@media (max-width: 900px) {
+  .project--feature { grid-template-columns: 1fr; }
+  .project--feature .project__media { min-height: 0; aspect-ratio: 16 / 10; }
+}
 .project__media {
   position: relative;
   overflow: hidden;

@@ -131,6 +131,21 @@ for (const [path, needle] of devpathPages) {
 const { res: devMissing } = await get("/devpath/no-such-page");
 check("devpath unknown path → 404", devMissing.status === 404, "status " + devMissing.status);
 
+/* ---------------------------- devpath as a portfolio project (links/likes) */
+const { text: homeBody } = await get("/index.html");
+check("portfolio lists ZeroStack as a project", homeBody.includes("ZeroStack — zero to full-stack"));
+check("portfolio project card links to devpath", homeBody.includes('href="devpath/"'));
+
+const { res: cover } = await get("/assets/images/zerostack-cover.svg");
+check("devpath cover art is served", cover.status === 200 && cover.headers.get("content-type").includes("svg"),
+  "status " + cover.status);
+
+const zsLike = await post("/api/like", { project: "zerostack", delta: 1 });
+check("like endpoint accepts the zerostack project", zsLike.res.status === 200, "status " + zsLike.res.status);
+check("zerostack has its own like tally", !!zsLike.data && typeof zsLike.data.likes.zerostack === "number",
+  JSON.stringify(zsLike.data));
+await post("/api/like", { project: "zerostack", delta: -1 });
+
 console.log(results.join("\n"));
 console.log(`\n${failures === 0 ? "PASS" : "FAIL"} — ${results.length - failures}/${results.length} checks passed`);
 process.exit(failures === 0 ? 0 : 1);

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="ZeroStack — a 24-week path from ordinary to full-stack developer">
+  <defs>
+    <radialGradient id="wash" cx="86%" cy="4%" r="70%">
+      <stop offset="0" stop-color="#e8441f" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#e8441f" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wash2" cx="6%" cy="100%" r="60%">
+      <stop offset="0" stop-color="#1f5fd0" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1f5fd0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#15130f" stop-opacity="0"/>
+      <stop offset="1" stop-color="#15130f" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#f6f1e8"/>
+  <rect width="1600" height="1000" fill="url(#wash)"/>
+  <rect width="1600" height="1000" fill="url(#wash2)"/>
+  <rect x="28" y="28" width="1544" height="944" fill="none" stroke="#15130f" stroke-opacity="0.16"/>
+
+  <!-- mono eyebrow -->
+  <text x="108" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="26" letter-spacing="7" fill="#7c7466">24-WEEK PATH · FREE</text>
+
+  <!-- wordmark -->
+  <text x="100" y="360" font-family="Helvetica, Arial, sans-serif" font-size="190" font-weight="bold" letter-spacing="-10" fill="#15130f">Zero<tspan fill="#e8441f">Stack</tspan></text>
+
+  <text x="108" y="452" font-family="Helvetica, Arial, sans-serif" font-size="46" fill="#453f36">From ordinary person to full-stack developer.</text>
+
+  <!-- the 12-stage track -->
+  <g transform="translate(108, 560)">
+    <line x1="10" y1="26" x2="1230" y2="26" stroke="#15130f" stroke-opacity="0.14" stroke-width="3"/>
+    <g fill="#15130f" fill-opacity="0.18">
+      <circle cx="10" cy="26" r="15"/>
+      <circle cx="120" cy="26" r="15"/>
+      <circle cx="340" cy="26" r="15"/>
+      <circle cx="450" cy="26" r="15"/>
+      <circle cx="560" cy="26" r="15"/>
+      <circle cx="670" cy="26" r="15"/>
+      <circle cx="780" cy="26" r="15"/>
+      <circle cx="890" cy="26" r="15"/>
+      <circle cx="1000" cy="26" r="15"/>
+      <circle cx="1110" cy="26" r="15"/>
+      <circle cx="1220" cy="26" r="15"/>
+    </g>
+    <circle cx="230" cy="26" r="15" fill="#15130f" fill-opacity="0.18"/>
+    <!-- completed stages -->
+    <circle cx="10" cy="26" r="16" fill="#16794f"/>
+    <circle cx="120" cy="26" r="16" fill="#16794f"/>
+    <!-- current stage -->
+    <circle cx="230" cy="26" r="20" fill="none" stroke="#e8441f" stroke-width="4"/>
+    <circle cx="230" cy="26" r="9" fill="#e8441f"/>
+
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" fill="#7c7466" letter-spacing="3">
+      <text x="0" y="98">01 WEB</text>
+      <text x="110" y="98">02 HTML</text>
+      <text x="230" y="98" fill="#e8441f">03 CSS</text>
+      <text x="340" y="98">04 GIT</text>
+      <text x="450" y="98">05 JS</text>
+      <text x="560" y="98">06 APIS</text>
+      <text x="670" y="98">07 REACT</text>
+      <text x="780" y="98">08 NODE</text>
+      <text x="890" y="98">09 SQL</text>
+      <text x="1000" y="98">10 AUTH</text>
+      <text x="1110" y="98">11 DEPLOY</text>
+      <text x="1220" y="98">12 HIRE</text>
+    </g>
+  </g>
+
+  <!-- footer facts -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="26" letter-spacing="4" fill="#453f36">
+    <text x="108" y="830">12 STAGES</text>
+    <text x="368" y="830">55 LESSONS</text>
+    <text x="658" y="830">186 HOURS</text>
+    <text x="948" y="830">8 PROJECTS</text>
+  </g>
+
+  <!-- progress card -->
+  <g transform="translate(1120, 660)">
+    <rect width="360" height="220" rx="22" fill="#fffcf6" stroke="#15130f" stroke-opacity="0.14"/>
+    <text x="30" y="52" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="21" letter-spacing="4" fill="#7c7466">PROGRESS</text>
+    <text x="30" y="122" font-family="Helvetica, Arial, sans-serif" font-size="54" font-weight="bold" fill="#15130f">7%</text>
+    <text x="130" y="120" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#7c7466">saved locally</text>
+    <rect x="30" y="152" width="300" height="12" rx="6" fill="#eee7da"/>
+    <rect x="30" y="152" width="21" height="12" rx="6" fill="#e8441f"/>
+  </g>
+
+  <rect width="1600" height="1000" fill="url(#fade)" opacity="0.5"/>
+</svg>

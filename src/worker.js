@@ -10,7 +10,7 @@
  * (local or hosted) works with no manual migration step.
  */
 
-const PROJECTS = new Set(["movie", "anime", "avatar", "birthday", "portfolio"]);
+const PROJECTS = new Set(["movie", "anime", "avatar", "birthday", "portfolio", "zerostack"]);
 const KINDS = new Set(["guestbook", "contact", "rsvp"]);
 // only these are readable through the public list endpoint
 const PUBLIC_KINDS = new Set(["guestbook", "rsvp"]);

@@ -104,7 +104,7 @@
 
           <div class="hero__stats">
             <div class="stat">
-              <div class="stat__num"><span data-count="3">0</span></div>
+              <div class="stat__num"><span data-count="4">0</span></div>
               <div class="stat__label">Projects live</div>
             </div>
             <div class="stat">
@@ -313,6 +313,33 @@
         </div>
 
         <div class="projects" data-reveal-group>
+          <article class="project project--feature" data-reveal="up">
+            <div class="project__media">
+              <span class="project__badge">Learning platform</span>
+              <img src="assets/images/zerostack-cover.svg" width="1600" height="1000" loading="lazy"
+                   alt="ZeroStack cover art — a 24-week path from ordinary to full-stack developer">
+            </div>
+            <div class="project__body">
+              <h3 class="project__title">ZeroStack — zero to full-stack</h3>
+              <p class="project__desc">
+                A second, complete site: a free 24-week curriculum that takes someone with no
+                coding background to a deployed, tested, multi-user app. Twelve ordered stages,
+                55 lessons, eight project briefs, a Ctrl+K command palette and progress that saves
+                in the browser — no account, no email.
+              </p>
+              <ul class="project__tags"><li>Design system</li><li>Curriculum data</li><li>localStorage</li><li>Vanilla JS</li></ul>
+              <div class="project__foot">
+                <a class="project__link" href="devpath/">
+                  Open ZeroStack <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+                <button class="like-btn" type="button" data-like="zerostack" aria-label="Like the ZeroStack learning site">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.4-9A5.6 5.6 0 0 1 12 5.7 5.6 5.6 0 0 1 21.4 12c-1.9 4.4-9.4 9-9.4 9Z"/></svg>
+                  <span class="like-btn__count">0</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
           <article class="project" data-reveal="up" data-tilt="5">
             <div class="project__media">
               <span class="project__badge">Personal</span>
@@ -492,6 +519,7 @@
           <a href="#projects">Projects</a>
           <a href="movie-ranking.html">Movie picks</a>
           <a href="birthday.html">Birthday</a>
+          <a href="devpath/">ZeroStack</a>
           <a href="contact.html">Contact</a>
         </nav>
       </div>
